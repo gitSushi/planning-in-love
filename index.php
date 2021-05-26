@@ -1,6 +1,6 @@
 <?php
 include('./core/authentication/guard.php');
-if (!isLogged()) header('Location: http://localhost/templates/login.php')
+if (!isLogged()) header('Location: http://localhost:4321/templates/login.php')
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +25,6 @@ if (!isLogged()) header('Location: http://localhost/templates/login.php')
 </head>
 
 <body class="box-border">
-    <p>HELOO</p>
     <?php
     include('./templates/nav.php');
     include('./controller/body_contoller.php');

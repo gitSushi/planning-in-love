@@ -59,7 +59,7 @@ function getUserId()
  */
 function getAllsUsers()
 {
-    return getDB()->query('SELECT id, logo, username FROM USER')->fetchAll(PDO::FETCH_ASSOC);
+    return getDB()->query("SELECT id, logo, username FROM USER")->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -85,7 +85,7 @@ function getFriends($userId)
  */
 function getTeamsId($userId)
 {
-    return getDB()->query('SELECT team FROM USER_TEAM where user LIKE :userId')->fetchAll(PDO::FETCH_ASSOC);
+    return getDB()->query("SELECT team FROM USER_TEAM where user LIKE '$userId'")->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -94,7 +94,7 @@ function getTeamsId($userId)
  */
 function getUsersFromTeam($teamId)
 {
-    return getDB()->query('SELECT USER.id, USER.username, USER.logo FROM USER_TEAM INNER JOIN USER ON USER_TEAM.user = USER.id WHERE USER_TEAM.team = :teamId')->fetchAll(PDO::FETCH_ASSOC);
+    return getDB()->query("SELECT USER.id, USER.username, USER.logo FROM USER_TEAM INNER JOIN USER ON USER_TEAM.user = USER.id WHERE USER_TEAM.team = '$teamId'")->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -103,7 +103,7 @@ function getUsersFromTeam($teamId)
  */
 function getUser($username, $password)
 {
-    return getDB()->query('SELECT id, username FROM USER WHERE username = :username AND password = :password')->fetch(PDO::FETCH_ASSOC);
+    return getDB()->query("SELECT id, username FROM USER WHERE username = '$username' AND password = '$password'")->fetch(PDO::FETCH_ASSOC);
 }
 
 
