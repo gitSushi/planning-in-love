@@ -5,7 +5,7 @@
  */
 function getDB()
 {
-    $host = "localhost";
+    $host = "172.17.0.1";
     $db   = "bwb_pil";
     $user = "root";
     $pass = "root";
@@ -24,7 +24,7 @@ function getDB()
         try {
             $db = new \PDO($dsn, $user, $pass, $options);
         } catch (\PDOException $e) {
-            throw new \PDOException($e->getMessage(), (int)$e->getCode());
+            throw new \PDOException($e->getMessage());
         }
     }
     return $db;
@@ -95,6 +95,15 @@ function getTeamsId($userId)
 function getUsersFromTeam($teamId)
 {
     return getDB()->query('SELECT USER.id, USER.username, USER.logo FROM USER_TEAM INNER JOIN USER ON USER_TEAM.user = USER.id WHERE USER_TEAM.team = :teamId')->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
+ * @param {string, string} username, password
+ * @return {array} user data or false
+ */
+function getUser($username, $password)
+{
+    return getDB()->query('SELECT id, username FROM USER WHERE username = :username AND password = :password')->fetch(PDO::FETCH_ASSOC);
 }
 
 
