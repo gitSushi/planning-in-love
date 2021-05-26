@@ -1,5 +1,8 @@
 <!-- nav menu -->
-<nav class="bg-black pt-2 md:pt-10">
+<nav class="bg-black pt-2">
+    <div class="flex justify-end">
+        <a class="mr-1 bg-yellow-600 text-yellow-800 py-2 px-3 rounded-lg hover:bg-yellow-500 hover:text-yellow-200" href="http://localhost:4321/core/authentication/logging_out.php">Se déconnecter</a>
+    </div>
     <div class="flex justify-center mb-4 md:mb-0">
         <!-- logo link to homepage -->
         <a href="index.php">

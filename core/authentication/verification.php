@@ -1,10 +1,10 @@
 <?php
 
 include('../DAL/database.php');
+
 /**
  * 
  */
-
 function checkUser($username, $password)
 {
     $user = getUser($username, $password);
@@ -20,4 +20,4 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     header("Location: http://localhost:4321");
 }
 
-header("Location: http://localhost:4321/templates/login.php");
+// header("Location: http://localhost:4321/templates/login.php");

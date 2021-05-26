@@ -26,8 +26,8 @@ if (!isLogged()) header('Location: http://localhost:4321/templates/login.php')
 
 <body class="box-border">
     <?php
-    include('./templates/nav.php');
-    include('./controller/body_contoller.php');
+        include('./templates/nav.php');
+        include('./controller/body_contoller.php');
     ?>
 
 </body>
