@@ -96,3 +96,24 @@ function getUsersFromTeam($teamId)
 {
     return getDB()->query('SELECT USER.id, USER.username, USER.logo FROM USER_TEAM INNER JOIN USER ON USER_TEAM.user = USER.id WHERE USER_TEAM.team = :teamId')->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
+/*
+// with loic on 2021-05-26
+function getFriendsCards($userId){
+    $teamIds = getDB()query('SELECT team FROM USER_TEAM WHERE user = :userId')->fetchAll(PDO::FETCH_ASSOC);
+    foreach($teamIds as $teamId){
+        getDB()query('SELECT user FROM USER_TEAM WHERE team = :teamId')->fetchAll(PDO::FETCH_ASSOC);
+    }
+}
+
+// nested query
+SELECT USER.firstname FROM USER_TEAM
+    INNER JOIN USER ON USER.id = USER_TEAM.user
+WHERE USER_TEAM.team = 100 AND USER_TEAM.user != 317 
+
+// nested query and in loop
+select distinct USER.id, USER.logo, USER.username, USER_TEAM.team FROM USER_TEAM
+    inner join USER ON USER.id = USER_TEAM.user
+where team in (select team from USER_TEAM where user = 21) and user != 21
+*/
