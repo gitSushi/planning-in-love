@@ -27,6 +27,7 @@
                 </div>
                 <button class="block w-full py-2 px-3 border border-transparent rounded-md text-yellow-500 font-medium bg-black shadow-sm sm:text-sm mb-10 hover:bg-yellow-600 hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-700 focus-visible:ring-offset-2 focus-visible:ring-offset-yellow-100" type="submit">Send</button>
                 <p><a href="#">Mot de passe oublié ?</a></p>
+                
             </form>
         </div>
     </main>
