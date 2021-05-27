@@ -18,6 +18,7 @@ function checkUser($username, $password)
 if (isset($_POST['username']) && isset($_POST['password'])) {
     checkUser($_POST['username'], $_POST['password']);
     header("Location: http://localhost:4321");
+    // exit();
 }
 
 // header("Location: http://localhost:4321/templates/login.php");
