@@ -1,0 +1,26 @@
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.user-card:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
+
+#username,
+#password,
+#username:-internal-autofill-selected,
+#password:-internal-autofill-selected {
+  background-color: white !important;
+}
+
+.login-main {
+  min-height: calc(100vh - 192px);
+}
+
+nav {
+  min-height: 192px;
+}
+
+.base-nav {
+  padding-top: calc(40px + 0.5rem);
+}

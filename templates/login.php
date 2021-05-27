@@ -1,22 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" class="h-full bg-yellow-50">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/tailwind.css">
-    <title>login</title>
-    <style>
-        #username,
-        #password,
-        #username:-internal-autofill-selected,
-        #password:-internal-autofill-selected {
-            background-color: white !important;
-        }
-    </style>
-</head>
-<body class="m-0 min-h-full flex">
-    <main class="flex-auto flex items-center justify-center text-center">
+<main class="login-main mx-2 md:mx-0 m-0 h-full flex bg-yellow-50">
+    <section class="flex-auto flex items-center justify-center text-center">
         <div class="w-full max-w-sm">
             <form action="../core/authentication/verification.php" method="post">
                 <div>
@@ -29,6 +12,5 @@
                 <p><a href="#">Mot de passe oublié ?</a></p>
             </form>
         </div>
-    </main>
-</body>
-</html>
+    </section>
+</main>

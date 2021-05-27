@@ -1,6 +1,6 @@
 <?php
-include('./core/authentication/guard.php');
-if (!isLogged()) header('Location: http://localhost:4321/templates/login.php')
+// include('./core/authentication/guard.php');
+// if (!isLogged()) header('Location: http://localhost:4321/templates/login.php')
 ?>
 
 <!DOCTYPE html>
@@ -11,16 +11,8 @@ if (!isLogged()) header('Location: http://localhost:4321/templates/login.php')
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/tailwind.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>planning with love</title>
-    <style>
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-
-        .user-card:hover {
-            box-shadow: 0 0 11px rgba(33, 33, 33, .2);
-        }
-    </style>
 
 </head>
 
@@ -28,9 +20,11 @@ if (!isLogged()) header('Location: http://localhost:4321/templates/login.php')
     <?php
     include('./templates/nav.php');
     include('./controller/body_contoller.php');
-    $obj = json_decode($_COOKIE['user']);
+    // $obj = json_decode($_COOKIE['user']);
     ?>
-    <p style="color:red;"><? print $obj->{'username'}; ?></p>
+    <!-- <p style="color:red;"><?php
+                                //  print $obj->{'username'}; 
+                                ?></p> -->
 </body>
 
 </html>
