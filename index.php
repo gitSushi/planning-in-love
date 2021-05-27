@@ -26,10 +26,11 @@ if (!isLogged()) header('Location: http://localhost:4321/templates/login.php')
 
 <body class="box-border">
     <?php
-        include('./templates/nav.php');
-        include('./controller/body_contoller.php');
+    include('./templates/nav.php');
+    include('./controller/body_contoller.php');
+    $obj = json_decode($_COOKIE['user']);
     ?>
-
+    <p style="color:red;"><? print $obj->{'username'}; ?></p>
 </body>
 
 </html>

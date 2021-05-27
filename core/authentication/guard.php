@@ -2,9 +2,9 @@
 
 function isLogged()
 {
-    session_start();
-    if (isset($_SESSION['user'])) return true;
+    if (isset($_COOKIE['user'])) {
+        return true;
+    }
 
-    setcookie("PHPSESSID", "", time());
     return false;
 }

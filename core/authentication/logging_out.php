@@ -1,8 +1,5 @@
 <?php
-session_start();
 
-// $_SESSION = array();
-session_destroy();
-setcookie("PHPSESSID", "", time());
+setcookie("user", "", time() - 3600, "/");
 
 header('Location: http://localhost:4321');

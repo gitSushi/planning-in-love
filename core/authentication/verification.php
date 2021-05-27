@@ -9,9 +9,7 @@ function checkUser($username, $password)
 {
     $user = getUser($username, $password);
     if ($user) {
-        session_start();
-        // or check if a session already exist if not create one
-        $_SESSION['user'] = $user;
+        setcookie("user", json_encode($user), time() + 3600, "/");
     }
 }
 
