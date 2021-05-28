@@ -31,6 +31,9 @@ try {
                 case 'login':
                     include('./templates/login.php');
                     break;
+                case 'signin':
+                    include('./templates/signin.php');
+                    break;
                 default:
                     break;
             }

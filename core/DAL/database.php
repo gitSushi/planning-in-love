@@ -126,3 +126,14 @@ select distinct USER.id, USER.logo, USER.username, USER_TEAM.team FROM USER_TEAM
     inner join USER ON USER.id = USER_TEAM.user
 where team in (select team from USER_TEAM where user = 21) and user != 21
 */
+
+/**
+ * Adds a new user
+ * @param {string, string, string, string, string}
+ * @return
+ */
+function addUser($username, $password, $firstname, $lastname, $email)
+{
+
+    // return getDB()->
+}

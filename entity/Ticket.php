@@ -4,7 +4,6 @@ class Ticket
 {
     private $id;
     private $ticketStatus;
-    private $tag;
     private $endDate;
     private $affected;
     private $projectAffected;
@@ -22,16 +21,6 @@ class Ticket
     public function setTicketStatus($ticketStatus)
     {
         return $this->ticketStatus = $ticketStatus;
-    }
-
-    public function getTag()
-    {
-        return $this->tag;
-    }
-
-    public function setTag($tag)
-    {
-        return $this->tag = $tag;
     }
 
     public function getEndDate()
