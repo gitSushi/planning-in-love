@@ -65,13 +65,11 @@ class Projekt
         return $this->endDate = $endDate;
     }
 
+    /**
+     * team id : eventually we need an instance of the team entity
+     */
     public function getTeam()
     {
         return $this->team;
-    }
-
-    public function setTeam($team)
-    {
-        return $this->team = $team;
     }
 }

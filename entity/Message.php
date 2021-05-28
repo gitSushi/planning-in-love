@@ -45,24 +45,20 @@ class Message
         return $this->messageStatus = $messageStatus;
     }
 
+    /**
+     * sender id : eventually we need an instance of the user entity
+     */
     public function getSender()
     {
         return $this->sender;
     }
 
-    public function setSender($sender)
-    {
-        return $this->sender = $sender;
-    }
-
+    /**
+     * receiver id : eventually we need an instance of the user entity
+     */
     public function getReceiver()
     {
         return $this->receiver;
-    }
-
-    public function setReceiver($receiver)
-    {
-        return $this->receiver = $receiver;
     }
 
     public function getSendDate()

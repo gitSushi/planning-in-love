@@ -33,23 +33,19 @@ class Ticket
         return $this->endDate = $endDate;
     }
 
+    /**
+     * team id : eventually we need an instance of the team entity
+     */
     public function getAffected()
     {
         return $this->affected;
     }
 
-    public function setAffected($affected)
-    {
-        return $this->affected = $affected;
-    }
-
+    /**
+     * projekt id : eventually we need an instance of the projekt entity
+     */
     public function getProjectAffected()
     {
         return $this->projectAffected;
-    }
-
-    public function setProjectAffected($projectAffected)
-    {
-        return $this->projectAffected = $projectAffected;
     }
 }
