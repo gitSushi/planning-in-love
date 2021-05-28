@@ -13,14 +13,24 @@
   background-color: white !important;
 }
 
-.login-main {
-  min-height: calc(100vh - 192px);
-}
-
 nav {
   min-height: 192px;
 }
 
 .base-nav {
   padding-top: calc(40px + 0.5rem);
+}
+
+.main-body {
+  min-height: calc(100vh - 192px);
+}
+
+.pil-h1 {
+  text-shadow: 1px 0 black;
+}
+
+@media (min-width: 768px) {
+  .resp-md-w {
+    width: 30em;
+  }
 }

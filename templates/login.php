@@ -1,4 +1,4 @@
-<main class="login-main mx-2 md:mx-0 m-0 h-full flex bg-yellow-50">
+<main class="main-body mx-2 md:mx-0 m-0 h-full flex bg-yellow-50">
     <section class="flex-auto flex items-center justify-center text-center">
         <div class="w-full max-w-sm">
             <form action="../core/authentication/verification.php" method="post">
