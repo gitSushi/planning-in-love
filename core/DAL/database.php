@@ -142,3 +142,16 @@ function addUser($firstname, $lastname, $email, $username, $password)
 
     return $user->execute($data);
 }
+
+/**
+ * @return {associative array} list of all projekts
+ */
+function getAllProjekts()
+{
+    return getDB()
+        ->query(
+            "SELECT project_id, project_name, description, logo, start_date, end_date
+            FROM PROJECT"
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
+}
