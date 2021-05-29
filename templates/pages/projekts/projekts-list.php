@@ -3,16 +3,21 @@ include('core/DAL/database.php');
 $projects = getAllProjekts();
 ?>
 
-<main class="main-body mx-2 md:mx-0 m-0 h-full bg-yellow-50">
+<main
+    class="main-body pt-6 py-2 md:mx-0 m-0 h-full bg-gradient-to-br from-yellow-200 via-red-300 to-pink-300">
     <h1
-        class="pil-h1 text-center text-xl md:text-3xl font-black text-yellow-700">
-        PROJEKTS LIST</h1>
-    <section class="flex flex-wrap justify-center mt-4">
+        class="pil-h1 text-center text-3xl md:text-4xl lg:text-5xl md:text-3xl font-black text-yellow-700">
+        PROJEKTS LIST
+    </h1>
+    <div
+        class="hidden md:block h-0.5 w-3/5 mx-auto my-4 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 shadow">
+    </div>
+    <section class="flex flex-wrap justify-center mt-6">
         <?php
       foreach ($projects as $project) {
       ?>
         <article
-            class="w-full resp-md-w m-2 p-2 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-red-200 cursor-pointer">
+            class="w-full resp-md-w m-2 p-2 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-yellow-500 cursor-pointer">
             <div class="grid grid-cols-3 grid-rows-3">
                 <div class="">
                     <img class="object-contain h-12 rounded"
