@@ -68,33 +68,15 @@ function getAllsUsers()
  */
 function getFriends($userId)
 {
-    $teams = array();
-
-    foreach (getTeamsId($userId) as $team) {
-
-        // Est-ce-que le user de userId ne se retrouve pas dans la liste ? 
-
-        array_merge($teams, getUsersFromTeam($team));
-    }
-    return $teams;
-}
-
-/**
- * @param {int} userId
- * @return {array} one team ids
- */
-function getTeamsId($userId)
-{
-    return getDB()->query("SELECT team FROM USER_TEAM where user LIKE '$userId'")->fetchAll(PDO::FETCH_ASSOC);
-}
-
-/**
- * @param {int} teamId
- * @return {array} one team users
- */
-function getUsersFromTeam($teamId)
-{
-    return getDB()->query("SELECT USER.id, USER.username, USER.logo FROM USER_TEAM INNER JOIN USER ON USER_TEAM.user = USER.id WHERE USER_TEAM.team = '$teamId'")->fetchAll(PDO::FETCH_ASSOC);
+    return getDB()
+        ->query(
+            "SELECT DISTINCT us.id, us.logo, us.username, ust.team
+            FROM USER_TEAM AS ust
+            INNER JOIN USER AS us
+            ON us.id = ust.user
+            WHERE team IN (SELECT team FROM USER_TEAM WHERE user = '$userId') AND user != '$userId'"
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -106,34 +88,57 @@ function getUser($username, $password)
     return getDB()->query("SELECT id, username FROM USER WHERE username = '$username' AND password = '$password'")->fetch(PDO::FETCH_ASSOC);
 }
 
-
-/*
-// with loic on 2021-05-26
-function getFriendsCards($userId){
-    $teamIds = getDB()query('SELECT team FROM USER_TEAM WHERE user = :userId')->fetchAll(PDO::FETCH_ASSOC);
-    foreach($teamIds as $teamId){
-        getDB()query('SELECT user FROM USER_TEAM WHERE team = :teamId')->fetchAll(PDO::FETCH_ASSOC);
-    }
+/**
+ * @return {associative array} the last user id
+ */
+function getLastUserId()
+{
+    return getDB()->query("SELECT MAX(id) FROM USER")->fetch(PDO::FETCH_ASSOC);
 }
 
-// nested query
-SELECT USER.firstname FROM USER_TEAM
-    INNER JOIN USER ON USER.id = USER_TEAM.user
-WHERE USER_TEAM.team = 100 AND USER_TEAM.user != 317 
+/**
+ * @return {hexadecimal} one duo for hexColor
+ */
+function randomColorDuo()
+{
+    return dechex(mt_rand(0, 255));
+}
 
-// nested query and in loop
-select distinct USER.id, USER.logo, USER.username, USER_TEAM.team FROM USER_TEAM
-    inner join USER ON USER.id = USER_TEAM.user
-where team in (select team from USER_TEAM where user = 21) and user != 21
-*/
+/**
+ * @return {hexadecimal} hexColor
+ */
+function randomHexColor()
+{
+    return randomColorDuo() . randomColorDuo() . randomColorDuo();
+}
 
 /**
  * Adds a new user
  * @param {string, string, string, string, string}
  * @return
  */
-function addUser($username, $password, $firstname, $lastname, $email)
+function addUser($firstname, $lastname, $email, $username, $password)
 {
+    $id = getLastUserId()['MAX(id)'] + 1;
+    $width = rand(100, 250);
+    $colA = randomHexColor();
+    $colB = randomHexColor();
+    $logo = "http://dummyimage.com/{$width}x100.png/{$colA}/{$colB}";
 
-    // return getDB()->
+    $user = getDB()->prepare(
+        "INSERT INTO USER (id, firstname, lastname, email, logo, username, password)
+        VALUES (:id, :firstname, :lastname, :email, :logo, :username, :password)"
+    );
+
+    $data = [
+        'id' => $id,
+        'firstname' => $firstname,
+        'lastname' => $lastname,
+        'email' => $email,
+        'logo' => $logo,
+        'username' => $username,
+        'password' => $password
+    ];
+
+    return $user->execute($data);
 }
