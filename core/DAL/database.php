@@ -155,3 +155,64 @@ function getAllProjekts()
         )
         ->fetchAll(PDO::FETCH_ASSOC);
 }
+
+/**
+ * @return {associative array} infos of designated-by-id projekt
+ */
+function getProjektDetail($projektId)
+{
+    return getDB()
+        ->query(
+            "SELECT *
+            FROM PROJECT
+            WHERE project_id = '$projektId'"
+        )
+        ->fetch(PDO::FETCH_ASSOC);
+}
+
+/**
+ * @param {int} team id
+ * @return {associative array | null} Team infos
+ */
+function getTeam($teamId)
+{
+    return getDB()
+        ->query(
+            "SELECT *
+            FROM TEAM
+            WHERE id = '$teamId'"
+        )
+        ->fetch(PDO::FETCH_ASSOC);
+}
+
+/**
+ * @param {int} projekt id
+ * @return {associative array | null} The users list of this very projekt
+ */
+function getProjektMembers($projektId)
+{
+    return getDB()
+        ->query(
+            "SELECT DISTINCT id, firstname, lastname, email, logo, username
+            FROM USER
+            INNER JOIN USER_PROJECT
+            ON id = user
+            WHERE user IN (SELECT user FROM bwb_pil.USER_PROJECT WHERE project = '$projektId')"
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
+ * @param {int} projekt id
+ * @return {associative array | null} The tickets list of this very projekt 
+ */
+function getTickets($projektId)
+{
+    return getDB()
+        ->query(
+            "SELECT id, ticket_status, end_date, affected
+            FROM bwb_pil.TICKET
+            WHERE project_affected = '$projektId'"
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
+}

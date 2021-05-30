@@ -11,6 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/tailwind.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">  -->
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>planning with love</title>
 
@@ -25,6 +26,9 @@
     <!-- <p style="color:red;"><?php
                                 //  print $obj->{'username'}; 
                                 ?></p> -->
+
+    <script src="./assets/js/index.js"></script>
+
 </body>
 
 </html>

@@ -34,3 +34,25 @@ nav {
     width: 30em;
   }
 }
+
+.modal {
+  transition: opacity 0.25s ease;
+}
+body.modal-active {
+  overflow-x: hidden;
+  overflow-y: visible !important;
+}
+
+/* enum('backlog','todo','doing','done') */
+.backlog {
+  color: rgb(216, 29, 44);
+}
+.todo {
+  color: rgb(233, 247, 38);
+}
+.doing {
+  color: rgb(64, 201, 30);
+}
+.done {
+  color: rgb(82, 27, 155);
+}
