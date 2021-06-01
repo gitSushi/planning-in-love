@@ -30,10 +30,22 @@ try {
                     include('./templates/pages/planning.php');
                     break;
                 case 'teams/teams-list':
+                    include('core/DAL/database.php');
+                    $teams = getAllTeams();
                     include('./templates/pages/teams/teams-list.php');
                     break;
+                case 'teams/my-teams':
+                    include('core/DAL/database.php');
+                    $currentUserId = $_COOKIE['user'];
+                    $teams = getMyTeams(json_decode($currentUserId)->id);
+                    include('./templates/pages/teams/my-teams.php');
+                    break;
                 case 'teams/team-detail':
-                    include('./templates/pages/teams/team-detail.php');
+                    require('./core/DAL/database.php');
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        $team = getTeam($_GET['id']);
+                        require('./templates/pages/teams/team-detail.php');
+                    }
                     break;
                 default:
                     break;

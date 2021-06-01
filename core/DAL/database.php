@@ -44,7 +44,7 @@ function getUsers()
 }
 
 /**
- * @return {int} userId or false
+ * @return int userId or false
  */
 function getUserId()
 {
@@ -55,7 +55,7 @@ function getUserId()
 }
 
 /**
- * @return {array|false} self-explanatory
+ * @return array|false self-explanatory
  */
 function getAllsUsers()
 {
@@ -63,8 +63,8 @@ function getAllsUsers()
 }
 
 /**
- * @param {int} userId
- * @return {array} I ain't no loner AND I have a function to prove it
+ * @param int userId
+ * @return array I ain't no loner AND I have a function to prove it
  */
 function getFriends($userId)
 {
@@ -80,8 +80,9 @@ function getFriends($userId)
 }
 
 /**
- * @param {string, string} username, password
- * @return {array} user data or false
+ * @param string username
+ * @param string password
+ * @return array user data or false
  */
 function getUser($username, $password)
 {
@@ -89,7 +90,7 @@ function getUser($username, $password)
 }
 
 /**
- * @return {associative array} the last user id
+ * @return array the last user id
  */
 function getLastUserId()
 {
@@ -97,7 +98,7 @@ function getLastUserId()
 }
 
 /**
- * @return {hexadecimal} one duo for hexColor
+ * @return hexadecimal one duo for hexColor
  */
 function randomColorDuo()
 {
@@ -105,7 +106,7 @@ function randomColorDuo()
 }
 
 /**
- * @return {hexadecimal} hexColor
+ * @return hexadecimal hexColor
  */
 function randomHexColor()
 {
@@ -114,8 +115,12 @@ function randomHexColor()
 
 /**
  * Adds a new user
- * @param {string, string, string, string, string}
- * @return
+ * @param string $firstname
+ * @param string $lastname
+ * @param string $email
+ * @param string $username
+ * @param string $password
+ * @return bool Success or failure
  */
 function addUser($firstname, $lastname, $email, $username, $password)
 {
@@ -144,7 +149,7 @@ function addUser($firstname, $lastname, $email, $username, $password)
 }
 
 /**
- * @return {associative array} list of all projekts
+ * @return array List of all projekts
  */
 function getAllProjekts()
 {
@@ -158,7 +163,7 @@ function getAllProjekts()
 
 /**
  * @param int $projektId
- * @return associative|array list of all projekts
+ * @return array List of all projekts
  */
 function getMyProjekts($projektId)
 {
@@ -175,7 +180,8 @@ function getMyProjekts($projektId)
 }
 
 /**
- * @return {associative array} infos of designated-by-id projekt
+ * @param int $projektId
+ * @return array Infos of designated-by-id projekt
  */
 function getProjektDetail($projektId)
 {
@@ -189,8 +195,8 @@ function getProjektDetail($projektId)
 }
 
 /**
- * @param {int} team id
- * @return {associative array | null} Team infos
+ * @param int $teamId
+ * @return array|null Returns the team informations
  */
 function getTeam($teamId)
 {
@@ -204,8 +210,8 @@ function getTeam($teamId)
 }
 
 /**
- * @param {int} projekt id
- * @return {associative array | null} The users list of this very projekt
+ * @param int $projektId
+ * @return array|null The users list of this very projekt
  */
 function getProjektMembers($projektId)
 {
@@ -221,8 +227,8 @@ function getProjektMembers($projektId)
 }
 
 /**
- * @param {int} projekt id
- * @return {associative array | null} The tickets list of this very projekt 
+ * @param int $projektId
+ * @return array|null The tickets list of this very projekt 
  */
 function getTickets($projektId)
 {
@@ -231,6 +237,38 @@ function getTickets($projektId)
             "SELECT id, ticket_status, end_date, affected
             FROM bwb_pil.TICKET
             WHERE project_affected = '$projektId'"
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+/**
+ * @return array|null All the teams
+ */
+function getAllTeams()
+{
+    return getDB()
+        ->query(
+            "SELECT *
+            FROM TEAM"
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
+ * @param int $currentUserId
+ * @return array|null List of my teams
+ */
+function getMyTeams($currentUserId)
+{
+    return getDB()
+        ->query(
+            "SELECT *
+            FROM TEAM
+            WHERE id
+            IN (SELECT team
+            FROM USER_TEAM
+            WHERE user = '$currentUserId')"
         )
         ->fetchAll(PDO::FETCH_ASSOC);
 }

@@ -27,7 +27,7 @@ if (isset($_COOKIE['user'])) {
                         href="index.php?pages=teams/teams-list">teams list</a>
                 </li>
                 <li><a class="block mt-4 lg:inline-block lg:mt-0 hover:text-yellow-500 px-4 py-2 rounded mr-2"
-                        href="index.php?pages=teams/team-detail">team detail</a>
+                        href="index.php?pages=teams/my-teams">my teams</a>
                 </li>
             </ul>
         </li>

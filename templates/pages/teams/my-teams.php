@@ -9,8 +9,13 @@
     </div>
     <section class="flex flex-wrap justify-center mt-6">
         <?php
-        foreach ($teams as $team) {
+        if (count($teams) == 0) {
         ?>
+        <p>Vous n'êtes pas affecté à de teams</p>
+        <?php
+        } else {
+            foreach ($teams as $team) {
+            ?>
         <a class="block"
             href="index.php?pages=teams/team-detail&id=<? echo htmlspecialchars($team['id'], ENT_QUOTES, null, false) ?>">
             <article
@@ -35,6 +40,7 @@
             </article>
         </a>
         <?php
+            }
         }
         ?>
     </section>
