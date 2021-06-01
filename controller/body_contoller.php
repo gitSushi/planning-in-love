@@ -6,7 +6,15 @@ try {
         if (isset($_GET['pages'])) {
             switch ($_GET['pages']) {
                 case 'projekts/projekts-list':
+                    include('core/DAL/database.php');
+                    $projects = getAllProjekts();
                     include('./templates/pages/projekts/projekts-list.php');
+                    break;
+                case 'projekts/my-projekts':
+                    include('core/DAL/database.php');
+                    $currentUserId = $_COOKIE['user'];
+                    $projects = getMyProjekts(json_decode($currentUserId)->id);
+                    include('./templates/pages/projekts/my-projekts.php');
                     break;
                 case 'projekts/projekt-detail':
                     require('./core/DAL/database.php');
@@ -17,7 +25,6 @@ try {
                         $tickets = getTickets($_GET['id']);
                         require('./templates/pages/projekts/projekt-detail.php');
                     }
-                    // include('./templates/pages/projekts/projekt-detail.php');
                     break;
                 case 'planning':
                     include('./templates/pages/planning.php');

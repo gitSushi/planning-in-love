@@ -9,8 +9,13 @@
     </div>
     <section class="flex flex-wrap justify-center mt-6">
         <?php
-        foreach ($projects as $project) {
+        if (count($projects) == 0) {
         ?>
+        <p>Vous n'êtes pas affecté à de projekt</p>
+        <?php
+        } else {
+            foreach ($projects as $project) {
+            ?>
         <a class="block"
             href="index.php?pages=projekts/projekt-detail&id=<? echo htmlspecialchars($project['project_id'], ENT_QUOTES, null, false) ?>">
             <article
@@ -35,16 +40,17 @@
                         class="col-start-2 col-end-4 flex justify-end items-end">
                         <div class="pb-2 pr-4">
                             <?php
-                                $start = new DateTime($project['start_date']);
-                                $end = new DateTime($project['end_date']);
-                                echo "<p class=\"text-gray-500 text-sm\">Du {$start->format('M d, Y')} au {$end->format('M d, Y')}</p>";
-                                ?>
+                                    $start = new DateTime($project['start_date']);
+                                    $end = new DateTime($project['end_date']);
+                                    echo "<p class=\"text-gray-500 text-sm\">Du {$start->format('M d, Y')} au {$end->format('M d, Y')}</p>";
+                                    ?>
                         </div>
                     </div>
                 </div>
             </article>
         </a>
         <?php
+            }
         }
         ?>
     </section>

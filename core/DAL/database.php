@@ -157,6 +157,24 @@ function getAllProjekts()
 }
 
 /**
+ * @param int $projektId
+ * @return associative|array list of all projekts
+ */
+function getMyProjekts($projektId)
+{
+    return getDB()
+        ->query(
+            "SELECT *
+            FROM PROJECT
+            WHERE project_id
+            IN (SELECT project
+                FROM USER_PROJECT
+                WHERE user = '$projektId')"
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
  * @return {associative array} infos of designated-by-id projekt
  */
 function getProjektDetail($projektId)
