@@ -7,6 +7,11 @@ class Team
     private $slogan;
     private $logo;
 
+    public function __construct($id)
+    {
+        $this->id = $id;
+    }
+
     public function getId()
     {
         return $this->id;

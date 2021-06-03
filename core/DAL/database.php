@@ -59,7 +59,12 @@ function getUserId()
  */
 function getAllsUsers()
 {
-    return getDB()->query("SELECT id, logo, username FROM USER")->fetchAll(PDO::FETCH_ASSOC);
+    return getDB()
+        ->query(
+            "SELECT id, logo, username, email
+            FROM USER"
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -70,11 +75,15 @@ function getFriends($userId)
 {
     return getDB()
         ->query(
-            "SELECT DISTINCT us.id, us.logo, us.username, ust.team
+            "SELECT DISTINCT us.id, us.logo, us.username, us.email, ust.team
             FROM USER_TEAM AS ust
             INNER JOIN USER AS us
             ON us.id = ust.user
-            WHERE team IN (SELECT team FROM USER_TEAM WHERE user = '$userId') AND user != '$userId'"
+            WHERE team
+            IN (SELECT team
+                FROM USER_TEAM
+                WHERE user = '$userId')
+            AND user != '$userId'"
         )
         ->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -86,15 +95,44 @@ function getFriends($userId)
  */
 function getUser($username, $password)
 {
-    return getDB()->query("SELECT id, username FROM USER WHERE username = '$username' AND password = '$password'")->fetch(PDO::FETCH_ASSOC);
+    return getDB()
+        ->query(
+            "SELECT id, username
+            FROM USER
+            WHERE username = '$username'
+            AND password = '$password'"
+        )
+        ->fetch(PDO::FETCH_ASSOC);
 }
 
 /**
+ * @param int $id : selected user id
+ * @return array|null user's details
+ */
+function getUserDetail($id)
+{
+    return getDB()
+        ->query(
+            "SELECT id, username, email, logo
+            FROM USER
+            WHERE id = '$id'"
+        )
+        ->fetch(PDO::FETCH_ASSOC);
+}
+
+/**
+ * Because the id doesn't auto-increment
+ * need the last one to know the next.
  * @return array the last user id
  */
 function getLastUserId()
 {
-    return getDB()->query("SELECT MAX(id) FROM USER")->fetch(PDO::FETCH_ASSOC);
+    return getDB()
+        ->query(
+            "SELECT MAX(id)
+            FROM USER"
+        )
+        ->fetch(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -210,10 +248,69 @@ function getTeam($teamId)
 }
 
 /**
- * @param int $projektId
- * @return array|null The users list of this very projekt
+ * @param int team id
+ * @return array|null Returns the messages send and received from/by each members of a specific team.
+ *                    But only returns the sender
  */
-function getProjektMembers($projektId)
+function getTeamMembersMessages($teamId)
+{
+    return getDB()
+        ->query(
+            "SELECT msg.header, msg.body, msg.send_date, u.username, u.logo, u.id
+            FROM bwb_pil.MESSAGE AS msg
+            INNER JOIN bwb_pil.USER AS u
+            ON msg.sender = u.id
+            WHERE msg.receiver
+            IN (SELECT DISTINCT us.id
+                FROM USER_TEAM AS ust
+                INNER JOIN USER AS us
+                ON us.id = ust.user
+                WHERE team = '$teamId')
+            AND msg.sender
+            IN (SELECT DISTINCT us.id
+                FROM USER_TEAM AS ust
+                INNER JOIN USER AS us
+                ON us.id = ust.user
+                WHERE team = '$teamId')"
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
+ * @param int team id
+ * @return array|null Returns the messages send and received from/by each members of a specific team.
+ *                    And returns both the sender and the receiver
+ */
+function getSendersMessagesReceiversFromOneTeam($teamId)
+{
+    return getDB()
+        ->query(
+            "SELECT sending.id, sending.username, sending.logo, msg.header, msg.body, msg.send_date, receiving.id, receiving.username, receiving.logo
+            FROM bwb_pil.MESSAGE AS msg
+            INNER JOIN bwb_pil.USER AS sending ON msg.sender = sending.id
+            INNER JOIN bwb_pil.USER AS receiving ON msg.receiver = receiving.id
+            WHERE msg.receiver
+            IN (SELECT DISTINCT us.id
+                FROM USER_TEAM AS ust
+                INNER JOIN USER AS us
+                ON us.id = ust.user
+                WHERE team = '$teamId')
+            AND msg.sender
+            IN (SELECT DISTINCT us.id
+                FROM USER_TEAM AS ust
+                INNER JOIN USER AS us
+                ON us.id = ust.user
+                WHERE team = '$teamId')"
+        )
+        ->fetchAll(PDO::FETCH_NUM);
+}
+
+/**
+ * @param int $projektId
+ * @return array|null The users list of this very projekt (without the current user)
+ * (id, firstname, lastname, email, logo, username)
+ */
+function getProjektMembers($projektId, $currentUserId)
 {
     return getDB()
         ->query(
@@ -221,7 +318,11 @@ function getProjektMembers($projektId)
             FROM USER
             INNER JOIN USER_PROJECT
             ON id = user
-            WHERE user IN (SELECT user FROM bwb_pil.USER_PROJECT WHERE project = '$projektId')"
+            WHERE user
+            IN (SELECT user 
+                FROM bwb_pil.USER_PROJECT
+                WHERE project = '$projektId')
+            AND id != '$currentUserId'"
         )
         ->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -267,8 +368,51 @@ function getMyTeams($currentUserId)
             FROM TEAM
             WHERE id
             IN (SELECT team
-            FROM USER_TEAM
-            WHERE user = '$currentUserId')"
+                FROM USER_TEAM
+                WHERE user = '$currentUserId')"
+        )
+        ->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
+ * @param string header
+ * @param string body
+ * @param int sender
+ * @param int receiver
+ * @param datetime Yesterday is history, tomorrow is a mystery
+ *                 but today is a gift, that is why it is called the present.
+ */
+function sendMessage($header, $body, $sender, $receiver, $send_date)
+{
+    $msg = getDB()->prepare(
+        "INSERT INTO MESSAGE (header, body, sender, receiver, send_date)
+        VALUES (:header, :body, :sender, :receiver, :send_date)"
+    );
+
+    $data = [
+        'header' => $header,
+        'body' => $body,
+        'sender' => $sender,
+        'receiver' => $receiver,
+        'send_date' => $send_date
+    ];
+
+    return $msg->execute($data);
+}
+
+/**
+ * @param int user's id
+ * @return array All their messages
+ */
+function getThisUsersMessages($id)
+{
+    return getDB()
+        ->query(
+            "SELECT msg.header, msg.body, msg.send_date, u.username, u.logo, u.id
+            FROM bwb_pil.MESSAGE AS msg
+            INNER JOIN bwb_pil.USER AS u
+            ON msg.sender = u.id
+            WHERE msg.receiver = '$id'"
         )
         ->fetchAll(PDO::FETCH_ASSOC);
 }

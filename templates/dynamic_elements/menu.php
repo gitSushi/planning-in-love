@@ -17,8 +17,18 @@ if (isset($_COOKIE['user'])) {
                         projekts</a></li>
             </ul>
         </li>
-        <li class="mx-4"><a class="hover:text-yellow-500"
-                href="index.php?pages=planning">PLANNING</a></li>
+        <li class="mx-4 dropdown inline-block relative">
+            <span class="dropdown block hover:text-yellow-500">USERS</span>
+            <ul
+                class="dropdown-menu absolute hidden bg-black text-yellow-700 pt-1 z-10">
+                <li><a class="block mt-4 lg:inline-block lg:mt-0 hover:text-yellow-500 px-4 py-2 rounded mr-2"
+                        href="index.php?pages=users/users-list">users list</a>
+                </li>
+                <li><a class="block mt-4 lg:inline-block lg:mt-0 hover:text-yellow-500 px-4 py-2 rounded mr-2"
+                        href="index.php?pages=users/my-users">my friends</a>
+                </li>
+            </ul>
+        </li>
         <li class="mx-4 dropdown inline-block relative">
             <span class="dropdown block hover:text-yellow-500">TEAMS</span>
             <ul

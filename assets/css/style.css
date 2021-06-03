@@ -13,6 +13,12 @@
   background-color: white !important;
 }
 
+@media (min-width: 768px) {
+  .resp-md-w {
+    width: 30em;
+  }
+}
+
 nav {
   min-height: 192px;
 }
@@ -27,12 +33,6 @@ nav {
 
 .pil-h1 {
   text-shadow: 1px 0 black;
-}
-
-@media (min-width: 768px) {
-  .resp-md-w {
-    width: 30em;
-  }
 }
 
 .modal {
@@ -55,4 +55,16 @@ body.modal-active {
 }
 .done {
   color: rgb(82, 27, 155);
+}
+
+.text-outline {
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 768px) {
+  .text-outline {
+    -webkit-text-stroke-width: 4px;
+  }
 }

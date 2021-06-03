@@ -24,7 +24,8 @@
                     <img data-modal="modal-<? echo htmlspecialchars($member['id'], ENT_QUOTES, null, false) ?>"
                         class="modal-open object-cover h-8 w-8 rounded-full"
                         src="<? echo htmlspecialchars($member['logo'], ENT_QUOTES, null, false) ?>"
-                        alt="member logo <? echo htmlspecialchars($member['id'], ENT_QUOTES, null, false) ?>" />
+                        alt="member logo <? echo htmlspecialchars($member['id'], ENT_QUOTES, null, false) ?>"
+                        title="<? echo htmlspecialchars($member['username'], ENT_QUOTES, null, false) ?>" />
 
                     <!--Modal-->
                     <div id="modal-<? echo htmlspecialchars($member['id'], ENT_QUOTES, null, false) ?>"
@@ -42,9 +43,10 @@
                                 <!--Title-->
                                 <div
                                     class="flex justify-between items-center pb-3">
-                                    <p class="text-2xl font-bold">
-                                        <? echo htmlspecialchars($member['username'], ENT_QUOTES, null, false) ?>
-                                    </p>
+                                    <a class="text-2xl font-bold hover:text-yellow-500"
+                                        href="index.php?pages=users/user-detail&id=<? echo htmlspecialchars($member['id'], ENT_QUOTES, null, false) ?>">
+                                        <?php echo htmlspecialchars($member['username'], ENT_QUOTES, null, false); ?>
+                                    </a>
                                     <!-- <div
                                         class="modal-close cursor-pointer z-50">
                                         <svg class="fill-current text-black"
