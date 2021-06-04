@@ -1,5 +1,4 @@
-<main
-    class="main-body pt-6 py-2 md:mx-0 m-0 h-full bg-gradient-to-br from-yellow-200 via-red-300 to-pink-300">
+<main class="main-body pt-6 py-2 md:mx-0 m-0 h-full from-to-gradient">
     <h1
         class="pil-h1 text-center text-3xl md:text-4xl lg:text-5xl md:text-3xl font-black text-yellow-700">
         PROJEKTS LIST
@@ -12,19 +11,19 @@
         foreach ($projects as $project) {
         ?>
         <a class="block w-full resp-md-w m-2 p-2 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-yellow-500 cursor-pointer"
-            href="index.php?pages=projekts/projekt-detail&id=<? echo htmlspecialchars($project['project_id'], ENT_QUOTES, null, false) ?>">
+            href="index.php?pages=projekts/projekt-detail&id=<? echo htmlspecialchars($project['project_id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
             <div class="grid grid-cols-3 grid-rows-3">
                 <img class="object-contain h-12 rounded"
-                    src="<? echo htmlspecialchars($project['logo'], ENT_QUOTES, null, false) ?>"
-                    alt="projekt logo <? echo htmlspecialchars($project['project_id'], ENT_QUOTES, null, false) ?>" />
+                    src="<? echo htmlspecialchars($project['logo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                    alt="projekt logo <? echo htmlspecialchars($project['project_id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
                 <div class="col-span-2 flex justify-center items-center">
                     <span class="font-black">
-                        <? echo htmlspecialchars($project['project_name'], ENT_QUOTES, null, false) ?>
+                        <? echo htmlspecialchars($project['project_name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                     </span>
                 </div>
                 <div class="col-span-3 flex items-center">
                     <p class="md:text-lg">
-                        <? echo htmlspecialchars($project['description'], ENT_QUOTES, null, false) ?>
+                        <? echo htmlspecialchars($project['description'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                     </p>
                 </div>
                 <div class="col-start-2 col-end-4 flex justify-end items-end">

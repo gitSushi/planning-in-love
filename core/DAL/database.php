@@ -234,17 +234,18 @@ function getProjektDetail($projektId)
 
 /**
  * @param int $teamId
- * @return array|null Returns the team informations
+ * @return object|null Returns the team informations as an instance of Team()
  */
 function getTeam($teamId)
 {
+    include_once('entity/Team.php');
     return getDB()
         ->query(
             "SELECT *
             FROM TEAM
             WHERE id = '$teamId'"
         )
-        ->fetch(PDO::FETCH_ASSOC);
+        ->fetchObject("Team");
 }
 
 /**
@@ -300,7 +301,8 @@ function getSendersMessagesReceiversFromOneTeam($teamId)
                 FROM USER_TEAM AS ust
                 INNER JOIN USER AS us
                 ON us.id = ust.user
-                WHERE team = '$teamId')"
+                WHERE team = '$teamId')
+            ORDER BY msg.send_date DESC"
         )
         ->fetchAll(PDO::FETCH_NUM);
 }

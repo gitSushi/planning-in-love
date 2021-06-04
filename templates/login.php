@@ -1,5 +1,4 @@
-<main
-    class="main-body px-2 md:mx-0 m-0 h-full flex bg-gradient-to-br from-yellow-200 via-red-300 to-pink-300">
+<main class="main-body px-2 md:mx-0 m-0 h-full flex from-to-gradient">
     <section class=" flex-auto flex items-center justify-center text-center">
         <div class="w-full max-w-sm">
             <form action="../core/authentication/verification.php"

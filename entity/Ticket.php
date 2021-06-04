@@ -41,11 +41,21 @@ class Ticket
         return $this->affected;
     }
 
+    public function setAffected($affected)
+    {
+        return $this->affected = $affected;
+    }
+
     /**
      * projekt id : eventually we need an instance of the projekt entity
      */
     public function getProjectAffected()
     {
         return $this->projectAffected;
+    }
+
+    public function setProjectAffected($projectAffected)
+    {
+        return $this->projectAffected = $projectAffected;
     }
 }

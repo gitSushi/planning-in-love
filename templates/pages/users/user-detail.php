@@ -4,16 +4,16 @@
         <section class="block w-full m-2 p-2 bg-white shadow-lg rounded-md">
             <div class="grid grid-cols-3 grid-rows-3">
                 <img class="object-contain h-12 rounded"
-                    src="<? echo htmlspecialchars($user['logo'], ENT_QUOTES, null, false) ?>"
-                    alt="user logo <? echo htmlspecialchars($user['id'], ENT_QUOTES, null, false) ?>" />
+                    src="<? echo htmlspecialchars($user['logo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                    alt="user logo <? echo htmlspecialchars($user['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
                 <div class="col-span-2 flex justify-center items-center">
                     <span class="font-black">
-                        <? echo htmlspecialchars($user['username'], ENT_QUOTES, null, false) ?>
+                        <? echo htmlspecialchars($user['username'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                     </span>
                 </div>
                 <div class="col-span-3 flex items-center">
                     <p class="md:text-lg">
-                        <? echo htmlspecialchars($user['email'], ENT_QUOTES, null, false) ?>
+                        <? echo htmlspecialchars($user['email'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                     </p>
                 </div>
             </div>
@@ -21,12 +21,12 @@
                 class="block h-0.5 w-3/5 mx-auto my-4 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 shadow">
             </div>
             <p class="font-semibold">Envoyer un message à
-                <? echo htmlspecialchars($user['username'], ENT_QUOTES, null, false) ?>
+                <? echo htmlspecialchars($user['username'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
             </p>
             <form action="../../../core/sendMessage.php" method="post">
                 <input class="hidden" type="text" name="receiver-id"
                     id="receiver-id"
-                    value="<? echo htmlspecialchars($user['id'], ENT_QUOTES, null, false) ?>" />
+                    value="<? echo htmlspecialchars($user['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
                 <div class="flex flex-col items-end">
                     <div class="w-full">
                         <input
@@ -57,13 +57,13 @@
                 class="mx-4 mt-4 pb-2 border-b-2 border-gray-100 hover:bg-gray-50">
                 <div class="flex">
                     <img class="object-cover w-12 h-12 rounded-full mr-4"
-                        src="<? echo htmlspecialchars($msg['logo'], ENT_QUOTES, null, false) ?>"
-                        alt="user logo <? echo htmlspecialchars($msg['id'], ENT_QUOTES, null, false) ?>" />
+                        src="<? echo htmlspecialchars($msg['logo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                        alt="user logo <? echo htmlspecialchars($msg['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
                     <div>
                         <p class="font-semibold">
                             <a
-                                href="index.php?pages=users/user-detail&id=<? echo htmlspecialchars($msg['id'], ENT_QUOTES, null, false) ?>">
-                                <?php echo htmlspecialchars($msg['username'], ENT_QUOTES, null, false); ?>
+                                href="index.php?pages=users/user-detail&id=<? echo htmlspecialchars($msg['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
+                                <?php echo htmlspecialchars($msg['username'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>
                             </a>
                             <?php
                                     $end = new DateTime($msg['send_date']);
@@ -72,10 +72,10 @@
                         </p>
                         <div class="ml-6">
                             <p class="font-bold">
-                                <? echo htmlspecialchars($msg['header'], ENT_QUOTES, null, false) ?>
+                                <? echo htmlspecialchars($msg['header'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                             </p>
                             <p>
-                                <? echo htmlspecialchars($msg['body'], ENT_QUOTES, null, false) ?>
+                                <? echo htmlspecialchars($msg['body'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                             </p>
                         </div>
                     </div>

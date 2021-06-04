@@ -72,4 +72,9 @@ class Projekt
     {
         return $this->team;
     }
+
+    public function setTeam($team)
+    {
+        return $this->team = $team;
+    }
 }

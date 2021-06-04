@@ -24,6 +24,7 @@ try {
                         $currentUserId = $_COOKIE["user"];
                         $members = getProjektMembers($_GET["id"], json_decode($currentUserId)->id);
                         $tickets = getTickets($_GET["id"]);
+                        var_dump($team);
                         // or filter only ids of $members
                         // $messages = getLastThreeMessagesOfEachMember($members);
                         require('./templates/pages/projekts/projekt-detail.php');

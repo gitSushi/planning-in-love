@@ -7,10 +7,13 @@ class Team
     private $slogan;
     private $logo;
 
-    public function __construct($id)
-    {
-        $this->id = $id;
-    }
+    // public function __construct($id)
+    // {
+    //     /**
+    //      * not auto-incremented
+    //      */
+    //     $this->id = $id;
+    // }
 
     public function getId()
     {

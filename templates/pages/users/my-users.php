@@ -18,19 +18,19 @@
             foreach ($users as $user) {
             ?>
         <a class="block w-full resp-md-w m-2 p-2 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-yellow-500 cursor-pointer"
-            href="index.php?pages=users/user-detail&id=<? echo htmlspecialchars($user['id'], ENT_QUOTES, null, false) ?>">
+            href="index.php?pages=users/user-detail&id=<? echo htmlspecialchars($user['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
             <div class="grid grid-cols-3 grid-rows-2">
                 <img class="object-contain h-12 rounded"
-                    src="<? echo htmlspecialchars($user['logo'], ENT_QUOTES, null, false) ?>"
-                    alt="user logo <? echo htmlspecialchars($user['id'], ENT_QUOTES, null, false) ?>" />
+                    src="<? echo htmlspecialchars($user['logo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                    alt="user logo <? echo htmlspecialchars($user['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
                 <div class="col-span-2 flex justify-center items-center">
                     <span class="font-black">
-                        <? echo htmlspecialchars($user['username'], ENT_QUOTES, null, false) ?>
+                        <? echo htmlspecialchars($user['username'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                     </span>
                 </div>
                 <div class="col-span-3 flex items-center">
                     <p class="md:text-lg">
-                        <? echo htmlspecialchars($user['email'], ENT_QUOTES, null, false) ?>
+                        <? echo htmlspecialchars($user['email'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                     </p>
                 </div>
             </div>

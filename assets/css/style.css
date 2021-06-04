@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap");
+
 .dropdown:hover .dropdown-menu {
   display: block;
 }
@@ -59,12 +61,27 @@ body.modal-active {
 
 .text-outline {
   -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: black;
   -webkit-text-fill-color: transparent;
+}
+
+.text-outline-black {
+  -webkit-text-stroke-color: black;
+}
+
+.text-outline-white {
+  -webkit-text-stroke-color: white;
 }
 
 @media (min-width: 768px) {
   .text-outline {
     -webkit-text-stroke-width: 4px;
   }
+}
+
+.msg-txt {
+  font-family: "Odibee Sans", cursive;
+}
+
+.from-to-gradient {
+  background-image: linear-gradient(to bottom right, #fef3c7, #fef2f2, #fdf2f8);
 }

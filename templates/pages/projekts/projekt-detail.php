@@ -1,15 +1,14 @@
-<main
-    class="main-body pt-6 py-2 md:mx-0 m-0 h-full bg-gradient-to-br from-yellow-200 via-red-300 to-pink-300">
+<main class="main-body pt-6 py-2 md:mx-0 m-0 h-full from-to-gradient">
     <div class="flex justify-between m-2">
         <h2 class="text-lg">
             Projekt :
             <span class="font-black">
-                <? echo htmlspecialchars($projekt['project_name'], ENT_QUOTES, null, false) ?>
+                <? echo htmlspecialchars($projekt['project_name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
             </span>
         </h2>
         <div>
             <p>Nom de la team associée : <span class="font-bold">
-                    <? echo htmlspecialchars($team['name'], ENT_QUOTES, null, false)
+                    <? echo htmlspecialchars($team->getName(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')
                     ?>
                 </span></p>
             <p>Utilisateurs liés au projekt :</p>
@@ -21,14 +20,14 @@
                     foreach ($members as $member) {
                     ?>
                 <li class="ml-2 cursor-pointer">
-                    <img data-modal="modal-<? echo htmlspecialchars($member['id'], ENT_QUOTES, null, false) ?>"
+                    <img data-modal="modal-<? echo htmlspecialchars($member['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
                         class="modal-open object-cover h-8 w-8 rounded-full"
-                        src="<? echo htmlspecialchars($member['logo'], ENT_QUOTES, null, false) ?>"
-                        alt="member logo <? echo htmlspecialchars($member['id'], ENT_QUOTES, null, false) ?>"
-                        title="<? echo htmlspecialchars($member['username'], ENT_QUOTES, null, false) ?>" />
+                        src="<? echo htmlspecialchars($member['logo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                        alt="member logo <? echo htmlspecialchars($member['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                        title="<? echo htmlspecialchars($member['username'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
 
                     <!--Modal-->
-                    <div id="modal-<? echo htmlspecialchars($member['id'], ENT_QUOTES, null, false) ?>"
+                    <div id="modal-<? echo htmlspecialchars($member['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
                         class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center cursor-default">
                         <!-- Entoure ça -->
                         <div
@@ -44,8 +43,8 @@
                                 <div
                                     class="flex justify-between items-center pb-3">
                                     <a class="text-2xl font-bold hover:text-yellow-500"
-                                        href="index.php?pages=users/user-detail&id=<? echo htmlspecialchars($member['id'], ENT_QUOTES, null, false) ?>">
-                                        <?php echo htmlspecialchars($member['username'], ENT_QUOTES, null, false); ?>
+                                        href="index.php?pages=users/user-detail&id=<? echo htmlspecialchars($member['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
+                                        <?php echo htmlspecialchars($member['username'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>
                                     </a>
                                     <!-- <div
                                         class="modal-close cursor-pointer z-50">
@@ -63,7 +62,7 @@
 
                                 <!--Body-->
                                 <p>
-                                    <? echo htmlspecialchars($member['email'], ENT_QUOTES, null, false) ?>
+                                    <? echo htmlspecialchars($member['email'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                                 </p>
 
                             </div>
@@ -92,14 +91,14 @@
             foreach ($tickets as $ticket) {
             ?>
         <article
-            id="ticket-<? echo htmlspecialchars($ticket['id'], ENT_QUOTES, null, false) ?>"
+            id="ticket-<? echo htmlspecialchars($ticket['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
             class="w-1/4 m-2 p-2 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-yellow-500 cursor-pointer">
             <div class="grid grid-cols-2">
                 <div class="col-span-2 flex justify-center items-center">
                     <p>Affected #
                         <span
-                            class="font-black <? echo htmlspecialchars($ticket['ticket_status'], ENT_QUOTES, null, false) ?>">
-                            <? echo htmlspecialchars($ticket['affected'], ENT_QUOTES, null, false) ?>
+                            class="font-black <? echo htmlspecialchars($ticket['ticket_status'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
+                            <? echo htmlspecialchars($ticket['affected'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                         </span>
                     </p>
                 </div>

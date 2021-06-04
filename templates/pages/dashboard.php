@@ -1,5 +1,4 @@
-<main
-    class="main-body bg-gradient-to-br from-yellow-200 via-red-300 to-pink-300 pt-4">
+<main class="main-body from-to-gradient pt-4">
     <!-- dashboard -->
     <section class="container mx-auto lg:px-8 md:px-4">
         <!-- row projekts and kontaktz -->
