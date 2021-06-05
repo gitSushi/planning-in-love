@@ -16,31 +16,31 @@
             foreach ($projects as $project) {
             ?>
         <a class="block"
-            href="index.php?pages=projekts/projekt-detail&id=<? echo htmlspecialchars($project['project_id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
+            href="index.php?pages=projekts/projekt-detail&id=<? echo htmlspecialchars($project->getProjektId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
             <article
-                class="w-full resp-md-w m-2 p-2 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-yellow-500 cursor-pointer">
+                class="md:w-full resp-md-w m-1 md:m-2 p-1 md:p-2 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-yellow-500 cursor-pointer">
                 <div class="grid grid-cols-3 grid-rows-3">
-                    <div class="">
-                        <img class="object-contain h-12 rounded"
-                            src="<? echo htmlspecialchars($project['logo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
-                            alt="projekt logo <? echo htmlspecialchars($project['project_id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
+                    <div class="flex items-center">
+                        <img class="object-contain h-10 rounded"
+                            src="<? echo htmlspecialchars($project->getLogo(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                            alt="projekt logo <? echo htmlspecialchars($project->getProjektId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
                     </div>
                     <div class="col-span-2 flex justify-center items-center">
-                        <span class="font-black">
-                            <? echo htmlspecialchars($project['project_name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
+                        <span class="ml-2 md:m-0 font-black">
+                            <? echo htmlspecialchars($project->getProjektName(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                         </span>
                     </div>
                     <div class="col-span-3 flex items-center">
                         <p class="md:text-lg">
-                            <? echo htmlspecialchars($project['description'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
+                            <? echo htmlspecialchars($project->getDescription(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                         </p>
                     </div>
                     <div
                         class="col-start-2 col-end-4 flex justify-end items-end">
                         <div class="pb-2 pr-4">
                             <?php
-                                    $start = new DateTime($project['start_date']);
-                                    $end = new DateTime($project['end_date']);
+                                    $start = new DateTime($project->getStartDate());
+                                    $end = new DateTime($project->getEndDate());
                                     echo "<p class=\"text-gray-500 text-sm\">Du {$start->format('M d, Y')} au {$end->format('M d, Y')}</p>";
                                     ?>
                         </div>

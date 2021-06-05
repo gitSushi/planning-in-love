@@ -10,20 +10,18 @@
         <?php
         foreach ($teams as $team) {
         ?>
-        <a class="block w-full resp-md-w m-2 p-2 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-yellow-500 cursor-pointer"
-            href="index.php?pages=teams/team-detail&id=<? echo htmlspecialchars($team['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
-            <div class="grid grid-cols-3 grid-rows-2">
-                <img class="object-contain h-12 rounded"
-                    src="<? echo htmlspecialchars($team['logo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
-                    alt="projekt logo <? echo htmlspecialchars($team['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
-                <div class="col-span-2 flex justify-center items-center">
-                    <span class="font-black">
-                        <? echo htmlspecialchars($team['name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
-                    </span>
-                </div>
-                <div class="col-span-3 flex items-center">
+        <a class="block w-full mx-2 my-1 px-2 py-1 bg-white shadow rounded-md border-2 border-transparent hover:border-yellow-500 cursor-pointer"
+            href="index.php?pages=teams/team-detail&id=<? echo htmlspecialchars($team->getId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
+            <div class="flex items-center">
+                <img class="object-cover w-20 h-10 rounded mr-4 md:mr-8"
+                    src="<? echo htmlspecialchars($team->getLogo(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                    alt="projekt logo <? echo htmlspecialchars($team->getId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
+                <div class="w-full flex flex-col md:flex-row">
+                    <p class="w-1/4 font-black mr-4 md:mr-8">
+                        <? echo htmlspecialchars($team->getName(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
+                    </p>
                     <p class="md:text-lg">
-                        <? echo htmlspecialchars($team['slogan'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
+                        <? echo htmlspecialchars($team->getSlogan(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                     </p>
                 </div>
             </div>

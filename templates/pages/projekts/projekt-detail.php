@@ -3,12 +3,12 @@
         <h2 class="text-lg">
             Projekt :
             <span class="font-black">
-                <? echo htmlspecialchars($projekt['project_name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
+                <? echo htmlspecialchars($projekt->getProjektName(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
             </span>
         </h2>
         <div>
             <p>Nom de la team associée : <span class="font-bold">
-                    <? echo htmlspecialchars($team->getName(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')
+                    <? echo htmlspecialchars($projekt->getTeam()->getName(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')
                     ?>
                 </span></p>
             <p>Utilisateurs liés au projekt :</p>
@@ -20,14 +20,14 @@
                     foreach ($members as $member) {
                     ?>
                 <li class="ml-2 cursor-pointer">
-                    <img data-modal="modal-<? echo htmlspecialchars($member['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                    <img data-modal="modal-<? echo htmlspecialchars($member->getId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
                         class="modal-open object-cover h-8 w-8 rounded-full"
-                        src="<? echo htmlspecialchars($member['logo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
-                        alt="member logo <? echo htmlspecialchars($member['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
-                        title="<? echo htmlspecialchars($member['username'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
+                        src="<? echo htmlspecialchars($member->getLogo(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                        alt="member logo <? echo htmlspecialchars($member->getId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                        title="<? echo htmlspecialchars($member->getFirstname(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
 
                     <!--Modal-->
-                    <div id="modal-<? echo htmlspecialchars($member['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                    <div id="modal-<? echo htmlspecialchars($member->getId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
                         class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center cursor-default">
                         <!-- Entoure ça -->
                         <div
@@ -43,8 +43,8 @@
                                 <div
                                     class="flex justify-between items-center pb-3">
                                     <a class="text-2xl font-bold hover:text-yellow-500"
-                                        href="index.php?pages=users/user-detail&id=<? echo htmlspecialchars($member['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
-                                        <?php echo htmlspecialchars($member['username'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>
+                                        href="index.php?pages=users/user-detail&id=<? echo htmlspecialchars($member->getId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
+                                        <?php echo htmlspecialchars($member->getFirstname(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>
                                     </a>
                                     <!-- <div
                                         class="modal-close cursor-pointer z-50">
@@ -62,7 +62,11 @@
 
                                 <!--Body-->
                                 <p>
-                                    <? echo htmlspecialchars($member['email'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
+                                    <? echo htmlspecialchars($member->getFirstname(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
+                                    <? echo htmlspecialchars($member->getLastname(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
+                                </p>
+                                <p>
+                                    <? echo htmlspecialchars($member->getEmail(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                                 </p>
 
                             </div>
@@ -86,33 +90,45 @@
     <?php
     if (count($tickets) > 0) {
     ?>
-    <section class="flex flex-wrap justify-center mt-6">
+    <section
+        class="flex flex-wrap md:flex-nowrap rounded-md mt-4 mb-2 mx-2 p-2 bg-white">
         <?php
-            foreach ($tickets as $ticket) {
-            ?>
-        <article
-            id="ticket-<? echo htmlspecialchars($ticket['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
-            class="w-1/4 m-2 p-2 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-yellow-500 cursor-pointer">
-            <div class="grid grid-cols-2">
-                <div class="col-span-2 flex justify-center items-center">
-                    <p>Affected #
-                        <span
-                            class="font-black <? echo htmlspecialchars($ticket['ticket_status'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
-                            <? echo htmlspecialchars($ticket['affected'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
-                        </span>
-                    </p>
-                </div>
-                <div class="col-start-2 col-end-4 flex justify-end items-end">
-                    <div class="pb-2 pr-4">
-                        <?php
-                                $end = new DateTime($ticket['end_date']);
-                                echo "<p class=\"text-gray-500 text-sm\">Deadline : {$end->format('M d, Y')}</p>";
-                                ?>
+            $tasks = array("todo", "doing", "done", "backlog");
+
+            foreach ($tasks as $task) {
+                echo "<div class=\"w-full md:w-1/4 grid auto-rows-max grid-cols-1 m-2 p-2 text-center font-bold rounded $task-bg\">$task";
+                foreach ($tickets as $ticket) {
+                    $deadline = new DateTime($ticket->getEndDate());
+                    // $theTicket = "
+
+                    // ";
+
+                    if ($ticket->getTicketStatus() === $task) {
+                        echo "
+                    <article
+                    id=\"ticket-{$ticket->getId()}\"
+                    class=\"w-full my-2 py-2 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-yellow-500 cursor-pointer\"
+                    >
+                    <div class=\"grid grid-cols-2\">
+                        <div class=\"col-span-2 flex justify-center items-center\">
+                            <p>Affected #
+                                <span
+                                    class=\"font-black {$ticket->getTicketStatus()}-text\">
+                                    {$ticket->getAffected()}
+                                </span>
+                            </p>
+                        </div>
+                        <div class=\"col-start-2 col-end-4 flex justify-end items-end\">
+                            <div class=\"pb-2 pr-4\">
+                            <p class=\"text-gray-500 text-sm\">{$deadline->format('M d, Y')}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </article>
-        <?php
+                </article>
+                    ";
+                    }
+                }
+                echo "</div>";
             }
             ?>
     </section>

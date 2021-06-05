@@ -46,17 +46,30 @@ body.modal-active {
 }
 
 /* enum('backlog','todo','doing','done') */
-.backlog {
+.backlog-text {
   color: rgb(216, 29, 44);
 }
-.todo {
+.todo-text {
   color: rgb(233, 247, 38);
 }
-.doing {
+.doing-text {
   color: rgb(64, 201, 30);
 }
-.done {
+.done-text {
   color: rgb(82, 27, 155);
+}
+
+.backlog-bg {
+  background-color: rgba(216, 29, 45, 0.5);
+}
+.todo-bg {
+  background-color: rgba(233, 247, 38, 0.5);
+}
+.doing-bg {
+  background-color: rgba(64, 201, 30, 0.5);
+}
+.done-bg {
+  background-color: rgba(82, 27, 155, 0.5);
 }
 
 .text-outline {

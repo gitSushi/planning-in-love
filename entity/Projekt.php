@@ -2,27 +2,27 @@
 
 class Projekt
 {
-    private $projektId;
-    private $projektName;
+    private $project_id;
+    private $project_name;
     private $description;
     private $logo;
-    private $startDate;
-    private $endDate;
+    private $start_date;
+    private $end_date;
     private $team;
 
     public function getProjektId()
     {
-        return $this->projektId;
+        return $this->project_id;
     }
 
     public function getProjektName()
     {
-        return $this->projektName;
+        return $this->project_name;
     }
 
     public function setProjektName($projektName)
     {
-        return $this->projektName = $projektName;
+        return $this->project_name = $projektName;
     }
 
     public function getDescription()
@@ -47,22 +47,22 @@ class Projekt
 
     public function getStartDate()
     {
-        return $this->startDate;
+        return $this->start_date;
     }
 
     public function setStartDate($startDate)
     {
-        return $this->startDate = $startDate;
+        return $this->start_date = $startDate;
     }
 
     public function getEndDate()
     {
-        return $this->endDate;
+        return $this->end_date;
     }
 
     public function setEndDate($endDate)
     {
-        return $this->endDate = $endDate;
+        return $this->end_date = $endDate;
     }
 
     /**

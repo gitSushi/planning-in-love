@@ -3,10 +3,10 @@
 class Ticket
 {
     private $id;
-    private $ticketStatus;
-    private $endDate;
+    private $ticket_status;
+    private $end_date;
     private $affected;
-    private $projectAffected;
+    private $project_affected;
 
     public function getId()
     {
@@ -15,26 +15,26 @@ class Ticket
 
     public function getTicketStatus()
     {
-        return $this->ticketStatus;
+        return $this->ticket_status;
     }
 
     public function setTicketStatus($ticketStatus)
     {
-        return $this->ticketStatus = $ticketStatus;
+        return $this->ticket_status = $ticketStatus;
     }
 
     public function getEndDate()
     {
-        return $this->endDate;
+        return $this->end_date;
     }
 
     public function setEndDate($endDate)
     {
-        return $this->endDate = $endDate;
+        return $this->end_date = $endDate;
     }
 
     /**
-     * team id : eventually we need an instance of the team entity
+     * Err ... Not so sure what affected is for !
      */
     public function getAffected()
     {
@@ -51,11 +51,11 @@ class Ticket
      */
     public function getProjectAffected()
     {
-        return $this->projectAffected;
+        return $this->project_affected;
     }
 
     public function setProjectAffected($projectAffected)
     {
-        return $this->projectAffected = $projectAffected;
+        return $this->project_affected = $projectAffected;
     }
 }

@@ -4,16 +4,16 @@
         <section class="block w-full m-2 p-2 bg-white shadow-lg rounded-md">
             <div class="grid grid-cols-3 grid-rows-3">
                 <img class="object-contain h-12 rounded"
-                    src="<? echo htmlspecialchars($user['logo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
-                    alt="user logo <? echo htmlspecialchars($user['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
+                    src="<? echo htmlspecialchars($user->getLogo(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                    alt="user logo <? echo htmlspecialchars($user->getId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
                 <div class="col-span-2 flex justify-center items-center">
                     <span class="font-black">
-                        <? echo htmlspecialchars($user['username'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
+                        <? echo htmlspecialchars($user->getUsername(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                     </span>
                 </div>
                 <div class="col-span-3 flex items-center">
                     <p class="md:text-lg">
-                        <? echo htmlspecialchars($user['email'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
+                        <? echo htmlspecialchars($user->getEmail(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                     </p>
                 </div>
             </div>
@@ -21,12 +21,12 @@
                 class="block h-0.5 w-3/5 mx-auto my-4 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 shadow">
             </div>
             <p class="font-semibold">Envoyer un message à
-                <? echo htmlspecialchars($user['username'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
+                <? echo htmlspecialchars($user->getUsername(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
             </p>
             <form action="../../../core/sendMessage.php" method="post">
                 <input class="hidden" type="text" name="receiver-id"
                     id="receiver-id"
-                    value="<? echo htmlspecialchars($user['id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
+                    value="<? echo htmlspecialchars($user->getId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
                 <div class="flex flex-col items-end">
                     <div class="w-full">
                         <input

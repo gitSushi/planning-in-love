@@ -30,41 +30,20 @@ function getDB()
     return $db;
 }
 
-/**
- * @return array|false
- */
-function getUsers()
-{
-    if (isset($_GET["type"])) {
-        if ($_GET["type"] === "friends") {
-            return getFriends(27);
-        }
-    }
-    return getAllsUsers();
-}
-
-/**
- * @return int userId or false
- */
-function getUserId()
-{
-    if (isset($_GET["id"])) {
-        return $_GET["id"];
-    }
-    return 0;
-}
 
 /**
  * @return array|false self-explanatory
  */
-function getAllsUsers()
+function getAllUsers()
 {
+    include_once('entity/MinUser.php');
+
     return getDB()
         ->query(
             "SELECT id, logo, username, email
             FROM USER"
         )
-        ->fetchAll(PDO::FETCH_ASSOC);
+        ->fetchAll(PDO::FETCH_CLASS, "MinUser");
 }
 
 /**
@@ -73,28 +52,32 @@ function getAllsUsers()
  */
 function getFriends($userId)
 {
+    include_once('entity/ExtendedUser.php');
+
     return getDB()
         ->query(
-            "SELECT DISTINCT us.id, us.logo, us.username, us.email, ust.team
+            "SELECT DISTINCT us.id, us.logo, us.username, us.email, us.firstname, us.lastname
             FROM USER_TEAM AS ust
             INNER JOIN USER AS us
             ON us.id = ust.user
-            WHERE team
+            WHERE ust.team
             IN (SELECT team
                 FROM USER_TEAM
                 WHERE user = '$userId')
-            AND user != '$userId'"
+            AND ust.user != '$userId'"
         )
-        ->fetchAll(PDO::FETCH_ASSOC);
+        ->fetchAll(PDO::FETCH_CLASS, "ExtendedUser");
 }
 
 /**
  * @param string username
  * @param string password
- * @return array user data or false
+ * @return object|null user data
  */
 function getUser($username, $password)
 {
+    // include_once('entity/MinUser.php');
+
     return getDB()
         ->query(
             "SELECT id, username
@@ -107,17 +90,19 @@ function getUser($username, $password)
 
 /**
  * @param int $id : selected user id
- * @return array|null user's details
+ * @return object|null user's details
  */
 function getUserDetail($id)
 {
+    include_once('entity/MinUser.php');
+
     return getDB()
         ->query(
             "SELECT id, username, email, logo
             FROM USER
             WHERE id = '$id'"
         )
-        ->fetch(PDO::FETCH_ASSOC);
+        ->fetchObject('MinUser');
 }
 
 /**
@@ -187,45 +172,65 @@ function addUser($firstname, $lastname, $email, $username, $password)
 }
 
 /**
- * @return array List of all projekts
+ * @return array List of all projekts as instances of Projekt()
  */
 function getAllProjekts()
 {
+    include_once('entity/Projekt.php');
+
     return getDB()
         ->query(
             "SELECT project_id, project_name, description, logo, start_date, end_date
             FROM PROJECT"
         )
-        ->fetchAll(PDO::FETCH_ASSOC);
+        ->fetchAll(PDO::FETCH_CLASS, 'Projekt');
 }
 
 /**
  * @param int $projektId
- * @return array List of all projekts
+ * @return array List of all projekts as instances of Projekt() 
  */
 function getMyProjekts($projektId)
 {
+    include_once('entity/Projekt.php');
+
     return getDB()
         ->query(
-            "SELECT *
+            "SELECT project_id, project_name, description, logo, start_date, end_date
             FROM PROJECT
             WHERE project_id
             IN (SELECT project
                 FROM USER_PROJECT
                 WHERE user = '$projektId')"
         )
-        ->fetchAll(PDO::FETCH_ASSOC);
+        ->fetchAll(PDO::FETCH_CLASS, 'Projekt');
 }
 
 /**
  * @param int $projektId
- * @return array Infos of designated-by-id projekt
+ * @return object Infos of designated-by-id projekt
  */
 function getProjektDetail($projektId)
 {
+    include_once('entity/Projekt.php');
+
     return getDB()
         ->query(
-            "SELECT *
+            "SELECT project_id, project_name, description, logo, start_date, end_date
+            FROM PROJECT
+            WHERE project_id = '$projektId'"
+        )
+        ->fetchObject('Projekt');
+}
+
+/**
+ * @return int the id necessary for fetching the team details
+ */
+function getTeamIdFromProjektDetail($projektId)
+{
+    return getDB()
+        ->query(
+            "SELECT team
             FROM PROJECT
             WHERE project_id = '$projektId'"
         )
@@ -234,18 +239,34 @@ function getProjektDetail($projektId)
 
 /**
  * @param int $teamId
- * @return object|null Returns the team informations as an instance of Team()
+ * @return object|null Returns the team informations as an instance of ExtendedTeam()
  */
 function getTeam($teamId)
 {
-    include_once('entity/Team.php');
+    include_once('entity/ExtendedTeam.php');
     return getDB()
         ->query(
             "SELECT *
             FROM TEAM
             WHERE id = '$teamId'"
         )
-        ->fetchObject("Team");
+        ->fetchObject("ExtendedTeam");
+}
+
+/**
+ * @param int $teamId
+ * @return object|null Returns the team name as an instance of MinTeam()
+ */
+function getTeamName($teamId)
+{
+    include_once('entity/MinTeam.php');
+    return getDB()
+        ->query(
+            "SELECT name
+            FROM TEAM
+            WHERE id = '$teamId'"
+        )
+        ->fetchObject("MinTeam");
 }
 
 /**
@@ -314,6 +335,8 @@ function getSendersMessagesReceiversFromOneTeam($teamId)
  */
 function getProjektMembers($projektId, $currentUserId)
 {
+    include_once('entity/ExtendedUser.php');
+
     return getDB()
         ->query(
             "SELECT DISTINCT id, firstname, lastname, email, logo, username
@@ -326,7 +349,7 @@ function getProjektMembers($projektId, $currentUserId)
                 WHERE project = '$projektId')
             AND id != '$currentUserId'"
         )
-        ->fetchAll(PDO::FETCH_ASSOC);
+        ->fetchAll(PDO::FETCH_CLASS, "ExtendedUser");
 }
 
 /**
@@ -335,45 +358,51 @@ function getProjektMembers($projektId, $currentUserId)
  */
 function getTickets($projektId)
 {
+    include_once('entity/Ticket.php');
+
     return getDB()
         ->query(
             "SELECT id, ticket_status, end_date, affected
             FROM bwb_pil.TICKET
             WHERE project_affected = '$projektId'"
         )
-        ->fetchAll(PDO::FETCH_ASSOC);
+        ->fetchAll(PDO::FETCH_CLASS, 'Ticket');
 }
 
 
 /**
- * @return array|null All the teams
+ * @return array|null All the teams (instances of ExtendedTeam())
  */
 function getAllTeams()
 {
+    include_once('entity/ExtendedTeam.php');
+
     return getDB()
         ->query(
-            "SELECT *
+            "SELECT id, name, logo, slogan
             FROM TEAM"
         )
-        ->fetchAll(PDO::FETCH_ASSOC);
+        ->fetchAll(PDO::FETCH_CLASS, 'ExtendedTeam');
 }
 
 /**
  * @param int $currentUserId
- * @return array|null List of my teams
+ * @return array|null List of my teams (instances of ExtendedTeam())
  */
 function getMyTeams($currentUserId)
 {
+    include_once('entity/ExtendedTeam.php');
+
     return getDB()
         ->query(
-            "SELECT *
+            "SELECT id, name, logo, slogan
             FROM TEAM
             WHERE id
             IN (SELECT team
                 FROM USER_TEAM
                 WHERE user = '$currentUserId')"
         )
-        ->fetchAll(PDO::FETCH_ASSOC);
+        ->fetchAll(PDO::FETCH_CLASS, 'ExtendedTeam');
 }
 
 /**

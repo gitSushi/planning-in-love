@@ -8,32 +8,22 @@
     </div>
     <section class="flex flex-wrap justify-center mt-6">
         <?php
+        // var_dump($projects);
         foreach ($projects as $project) {
         ?>
-        <a class="block w-full resp-md-w m-2 p-2 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-yellow-500 cursor-pointer"
-            href="index.php?pages=projekts/projekt-detail&id=<? echo htmlspecialchars($project['project_id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
-            <div class="grid grid-cols-3 grid-rows-3">
-                <img class="object-contain h-12 rounded"
-                    src="<? echo htmlspecialchars($project['logo'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
-                    alt="projekt logo <? echo htmlspecialchars($project['project_id'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
-                <div class="col-span-2 flex justify-center items-center">
-                    <span class="font-black">
-                        <? echo htmlspecialchars($project['project_name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
-                    </span>
-                </div>
-                <div class="col-span-3 flex items-center">
-                    <p class="md:text-lg">
-                        <? echo htmlspecialchars($project['description'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
+        <a class="block w-full mx-2 my-1 px-2 py-1 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-yellow-500 cursor-pointer"
+            href="index.php?pages=projekts/projekt-detail&id=<? echo htmlspecialchars($project->getProjektId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
+            <div class="flex items-center">
+                <img class="object-cover w-20 h-10 rounded mr-4 md:mr-8"
+                    src="<? echo htmlspecialchars($project->getLogo(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                    alt="projekt logo <? echo htmlspecialchars($project->getProjektId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
+                <div class="w-full flex flex-col md:flex-row">
+                    <p class="w-1/4 font-black mr-4 md:mr-8">
+                        <? echo htmlspecialchars($project->getProjektName(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
                     </p>
-                </div>
-                <div class="col-start-2 col-end-4 flex justify-end items-end">
-                    <div class="pb-2 pr-4">
-                        <?php
-                            $start = new DateTime($project['start_date']);
-                            $end = new DateTime($project['end_date']);
-                            echo "<p class=\"text-gray-500 text-sm\">Du {$start->format('M d, Y')} au {$end->format('M d, Y')}</p>";
-                            ?>
-                    </div>
+                    <p class="md:text-lg">
+                        <? echo htmlspecialchars($project->getDescription(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
+                    </p>
                 </div>
             </div>
         </a>
