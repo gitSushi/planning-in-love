@@ -11,6 +11,38 @@
             </p>
         </div>
     </div>
+    <article class="mt-4 mb-2 mx-2 p-2 bg-white shadow-lg rounded-md">
+        <?php
+        if (count($members) > 0) {
+        ?>
+        <p class="mt-2 mb-4 pl-4 text-lg font-medium">Les membres de la team :
+        </p>
+        <ul class="pb-4 flex justify-evenly">
+            <?php
+                foreach ($members as $member) {
+                ?>
+            <li class="ml-2 cursor-pointer">
+                <a
+                    href="index.php?pages=users/user-detail&id=<? echo htmlspecialchars($member->getId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
+                    <img class="modal-open object-cover h-12 w-12 rounded-full"
+                        src="<? echo htmlspecialchars($member->getLogo(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                        alt="member logo <? echo htmlspecialchars($member->getId(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"
+                        title="<? echo htmlspecialchars($member->getUsername(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" />
+                </a>
+            </li>
+            <?php
+                }
+                ?>
+        </ul>
+        <?php
+        } else {
+        ?>
+        <p class="mt-2 mb-4 pl-4 text-lg font-medium">Aucun membre affecté à
+            cette team</p>
+        <?php
+        }
+        ?>
+    </article>
     <div class="flex justify-between m-2">
         <div class="hidden md:block md:w-1/3">
 
@@ -23,7 +55,7 @@
             </h3>
         </div>
         <section
-            class="block w-full md:w-2/3 m-2 p-2 bg-white shadow-lg rounded-md">
+            class="block w-full md:w-2/3 my-2 ml-2 p-2 bg-white shadow-lg rounded-md">
             <?php
             if (count($messages) > 0) {
                 // 0 => sending.id, 1 => sending.username, 2 => sending.logo,
@@ -69,6 +101,7 @@
                     </p>
                 </div>
             </div>
+
             <?php
                 }
             } else {

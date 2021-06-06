@@ -83,6 +83,7 @@ try {
                         require('./core/DAL/database.php');
 
                         $team = getTeam($_GET["id"]);
+                        $members = getTeamMembers($_GET["id"]);
                         $messages = getSendersMessagesReceiversFromOneTeam($_GET["id"]);
 
                         require('./templates/pages/teams/team-detail.php');

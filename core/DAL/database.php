@@ -255,6 +255,25 @@ function getTeam($teamId)
 
 /**
  * @param int $teamId
+ * @return array|null Returns the team members as an array of instances of MinUser()
+ */
+function getTeamMembers($teamId)
+{
+    include_once('entity/MinUser.php');
+
+    return getDB()
+        ->query(
+            "SELECT DISTINCT us.id, us.logo, us.username, us.email
+            FROM USER_TEAM AS ust
+            INNER JOIN USER AS us
+            ON us.id = ust.user
+            WHERE team = '$teamId'"
+        )
+        ->fetchAll(PDO::FETCH_CLASS, "MinUser");
+}
+
+/**
+ * @param int $teamId
  * @return object|null Returns the team name as an instance of MinTeam()
  */
 function getTeamName($teamId)
