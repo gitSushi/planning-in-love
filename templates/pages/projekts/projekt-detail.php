@@ -99,9 +99,6 @@
                 echo "<div data-ticket-status=\"{$task}\" class=\"dropzone w-full md:w-1/4 grid auto-rows-max grid-cols-1 m-2 p-2 text-center font-bold rounded border-4 border-dashed border-transparent $task-bg\">$task";
                 foreach ($tickets as $ticket) {
                     $deadline = new DateTime($ticket->getEndDate());
-                    // $theTicket = "
-
-                    // ";
 
                     if ($ticket->getTicketStatus() === $task) {
                         echo "

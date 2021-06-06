@@ -118,7 +118,8 @@ document.addEventListener(
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     // console.log(xhr.responseText);
 
-                    // Refresh page to update 
+                    // Refresh page to update ticket color
+                    // Probably not ideal but working
                     window.location.reload()
                 }
             }
