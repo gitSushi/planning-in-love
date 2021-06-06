@@ -352,23 +352,6 @@ function getProjektMembers($projektId, $currentUserId)
         ->fetchAll(PDO::FETCH_CLASS, "ExtendedUser");
 }
 
-/**
- * @param int $projektId
- * @return array|null The tickets list of this very projekt 
- */
-function getTickets($projektId)
-{
-    include_once('entity/Ticket.php');
-
-    return getDB()
-        ->query(
-            "SELECT id, ticket_status, end_date, affected
-            FROM bwb_pil.TICKET
-            WHERE project_affected = '$projektId'"
-        )
-        ->fetchAll(PDO::FETCH_CLASS, 'Ticket');
-}
-
 
 /**
  * @return array|null All the teams (instances of ExtendedTeam())
@@ -446,4 +429,38 @@ function getThisUsersMessages($id)
             WHERE msg.receiver = '$id'"
         )
         ->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+/**
+ * @param int $projektId
+ * @return array|null The tickets list of this very projekt 
+ */
+function getTickets($projektId)
+{
+    include_once('entity/Ticket.php');
+
+    return getDB()
+        ->query(
+            "SELECT id, ticket_status, end_date, affected
+            FROM bwb_pil.TICKET
+            WHERE project_affected = '$projektId'"
+        )
+        ->fetchAll(PDO::FETCH_CLASS, 'Ticket');
+}
+
+/**
+ * @param int $ticketId
+ * @param string $newStatus
+ * @return bool
+ */
+function updateTicketStatus($ticketId, $ticket_status)
+{
+    return getDB()
+        ->prepare(
+            "UPDATE bwb_pil.TICKET
+            SET ticket_status = '$ticket_status'
+            WHERE id = '$ticketId'"
+        )
+        ->execute();
 }

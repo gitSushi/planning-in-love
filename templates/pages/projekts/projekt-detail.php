@@ -96,7 +96,7 @@
             $tasks = array("todo", "doing", "done", "backlog");
 
             foreach ($tasks as $task) {
-                echo "<div class=\"w-full md:w-1/4 grid auto-rows-max grid-cols-1 m-2 p-2 text-center font-bold rounded $task-bg\">$task";
+                echo "<div data-ticket-status=\"{$task}\" class=\"dropzone w-full md:w-1/4 grid auto-rows-max grid-cols-1 m-2 p-2 text-center font-bold rounded border-4 border-dashed border-transparent $task-bg\">$task";
                 foreach ($tickets as $ticket) {
                     $deadline = new DateTime($ticket->getEndDate());
                     // $theTicket = "
@@ -106,14 +106,14 @@
                     if ($ticket->getTicketStatus() === $task) {
                         echo "
                     <article
-                    id=\"ticket-{$ticket->getId()}\"
-                    class=\"w-full my-2 py-2 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-yellow-500 cursor-pointer\"
+                    id=\"ticket-{$ticket->getId()}\" draggable=\"true\"
+                    class=\"w-full my-2 py-2 bg-white shadow-lg rounded-md border-2 border-transparent hover:border-yellow-500 cursor-move\"
                     >
                     <div class=\"grid grid-cols-2\">
                         <div class=\"col-span-2 flex justify-center items-center\">
                             <p>Affected #
-                                <span
-                                    class=\"font-black {$ticket->getTicketStatus()}-text\">
+                                <span id=\"status-{$ticket->getId()}\"
+                                    class=\"cursor-pointer font-black {$ticket->getTicketStatus()}-text\">
                                     {$ticket->getAffected()}
                                 </span>
                             </p>
