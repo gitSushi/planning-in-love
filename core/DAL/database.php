@@ -279,6 +279,7 @@ function getTeamMembers($teamId)
 function getTeamName($teamId)
 {
     include_once('entity/MinTeam.php');
+
     return getDB()
         ->query(
             "SELECT name
@@ -453,11 +454,11 @@ function getThisUsersMessages($id)
 
 /**
  * @param int $projektId
- * @return array|null The tickets list of this very projekt 
+ * @return array|null The tickets list of this very projekt (array of objects)
  */
 function getTickets($projektId)
 {
-    include_once('entity/Ticket.php');
+    include('entity/Ticket.php');
 
     return getDB()
         ->query(
@@ -482,4 +483,21 @@ function updateTicketStatus($ticketId, $ticket_status)
             WHERE id = '$ticketId'"
         )
         ->execute();
+}
+
+/**
+ * @param int $intId : ticket's id
+ * @return object|null The identified ticket as an object
+ */
+function getUpdatedTicket($intId)
+{
+    // include('entity/Ticket.php');
+
+    return getDB()
+        ->query(
+            "SELECT id, ticket_status, end_date, affected
+            FROM bwb_pil.TICKET
+            WHERE id = $intId"
+        )
+        ->fetchObject();
 }

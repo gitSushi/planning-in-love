@@ -104,6 +104,7 @@ document.addEventListener(
             event.target.classList.replace("border-pink-600", "border-transparent");
 
             const xhr = new XMLHttpRequest();
+            xhr.responseType = "json";
             xhr.open("POST", "http://localhost:4321/core/updateTicket.php");
 
             // xhr.setRequestHeader("Access-Control-Allow-Headers", "*");
@@ -116,11 +117,12 @@ document.addEventListener(
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    // console.log(xhr.responseText);
+                    // console.log(xhr.response);
 
-                    // Refresh page to update ticket color
-                    // Probably not ideal but working
-                    window.location.reload()
+                    const colLists = document.querySelector(`#status-${obj.id}`).classList;
+                    const oldClass = [...colLists].find((e) => e.match(/\w+-text/));
+
+                    colLists.replace(oldClass, `${xhr.response.ticket_status}-text`);
                 }
             }
 
