@@ -1,8 +1,3 @@
-<?php
-// include('./core/authentication/guard.php');
-// if (!isLogged()) header('Location: http://localhost:4321/templates/login.php')
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,11 +16,7 @@
     <?php
     include('./templates/nav.php');
     include('./controller/body_contoller.php');
-    // $obj = json_decode($_COOKIE['user']);
     ?>
-    <!-- <p style="color:red;"><?php
-                                //  print $obj->{'username'}; 
-                                ?></p> -->
 
     <script src="./assets/js/index.js"></script>
 
